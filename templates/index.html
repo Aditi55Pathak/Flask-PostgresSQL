@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postgres Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: blue;
+            text-align: center;
+            margin-top: 20px;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        table th {
+            background-color: #f2f2f2;
+        }
+        form {
+            display: inline-block;
+        }
+        input[type="text"], input[type="submit"] {
+            padding: 6px;
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>AWT lab submission</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Course Name</th>
+                <th>Field</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>
+                    <form action="/update" method="post">
+                        <input type="hidden" name="id" value="{{ row[0] }}">
+                        <input type="text" name="name" value="{{ row[1] }}" placeholder="Enter course name">
+                        <input type="text" name="fees" value="{{ row[2] }}" placeholder="Enter course fees">
+                        <input type="text" name="duration" value="{{ row[3] }}" placeholder="Enter course duration">
+                        <input type="submit" value="Update">
+                    </form>
+                    <form action="/delete" method="post">
+                        <input type="hidden" name="id" value="{{ row[0] }}">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Course Information Form</h2>
+    <form action="/create" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter course name"><br><br>
+
+        <label for="fees">Fees:</label>
+        <input type="text" id="fees" name="fees" placeholder="Enter course fees"><br><br>
+
+        <label for="duration">Duration:</label>
+        <input type="text" id="duration" name="duration" placeholder="Enter course duration"><br><br>
+
+        <input type="submit" value="Create">
+    </form>
+</body>
+</html>
